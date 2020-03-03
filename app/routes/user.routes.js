@@ -1,13 +1,24 @@
 module.exports = (app) => {
-    const users = require('../controllers/user.controller.js');
+    var User = require('../controllers/user.controller.js');
 
-    app.post('/users', users.create);
+//     router.get('/', function(req, res) {
+//   res.redirect('/catalog');
+// });
 
-    app.get('/users', users.findAll);
+    app.post('/users', User.create);
 
-    app.get('/users/:userId', users.findOne);
+    // app.get('/users', users.findAll);
 
-    app.put('/users/:userId', users.update);
+    app.get('/users', User.index)
 
-    app.delete('/users/:userId', users.delete);
+    app.get('/users/:userId', User.edit);
+
+    app.get('/users/:userId', User.edit);
+
+    app.post('/users/:userId', User.update)
+
+
+    // app.put('/users/:userId', users.update);
+
+    app.delete('/users/:userId', User.delete);
 }

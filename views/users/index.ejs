@@ -1,0 +1,47 @@
+
+<table>
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+<% 
+users.forEach( function ( user ){ %>
+<tr>
+        <td><%= user.name %></td>
+         <td><button type="button", onclick="edit_user('<%= user.id%>')">Edit!</button></td>
+         <td><button type="button", onclick="delete_user('<%= user.id%>')">Delete!</button></td>
+        </td>
+      </tr>
+<% });
+
+ %>
+ 
+ </table>
+<p id="demo1"></p>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">  
+
+function edit_user(id) {
+var demo1 =  $("#demo1");
+        $.ajax({
+            url: '/users/' + id,
+            type: 'GET',
+            success: function(results) {
+                demo1.html(results);  
+            }
+        });
+    }
+
+function delete_user(id) {
+var demo1 =  $("#demo1");
+        $.ajax({
+            url: '/users/' + id,
+            type: 'DELETE',
+            success: function(results) {
+                demo1.html(results);  
+            }
+        });
+    }
+
+</script>

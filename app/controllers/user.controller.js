@@ -23,10 +23,10 @@ exports.create = (req, res) => {
     });
 };
 
-exports.findAll = (req, res) => {
+exports.index = (req, res) => {
     User.find()
     .then(users => {
-        res.send(users);
+        res.render('../views/users/index', {users:users})
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving notes."
@@ -34,7 +34,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findOne = (req, res) => {
+exports.edit = (req, res) => {
     User.findById(req.params.userId)
     .then(user => {
         if(!user) {
@@ -42,17 +42,9 @@ exports.findOne = (req, res) => {
                 message: "User not found with id " + req.params.userId
             });
         }
-        res.send(user);
-    }).catch(err => {
-        if(err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "User not found with id " + req.params.userId
-            });                
-        }
-        return res.status(500).send({
-            message: "Error retrieving user with id " + req.params.userId
-        });
-    });
+        res.render('../views/users/form', {user :user});
+
+    })
 };
 
 exports.update = (req, res) => {
@@ -72,7 +64,7 @@ exports.update = (req, res) => {
                 message: "User not found with id " + req.params.userId
             });
         }
-        res.send(user);
+        res.redirect('/users');
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
@@ -93,7 +85,8 @@ exports.delete = (req, res) => {
                 message: "User not found with id " + req.params.userId
             });
         }
-        res.send({message: "User deleted successfully!"});
+        // res.send({message: "User deleted successfully!"});
+        res.redirect('/users');
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({

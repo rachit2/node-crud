@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Edit Form</title>
+</head>
+<body>
+<div id="edit">
+    <h1>Edit user</h1>
+    <form method="POST" action="/users/<%= user._id %>">
+        <fieldset>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" />
+            <input type="submit" value="Send message" />
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
