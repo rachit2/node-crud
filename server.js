@@ -1,14 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
-
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 
-app.use(bodyParser.json())
 app.set('view engine', 'ejs');
+  app.set('views', './views');
+
 app.get('/', (req, res) => {
     res.json({"message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."});
 });

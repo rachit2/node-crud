@@ -8,14 +8,16 @@ exports.create = (req, res) => {
             message: "Name can not be empty"
         });
     }
-
     const user = new User({
-        name: req.body.name || "Untitled User"
+        name: req.body.name || "Untitled User",
+        email: req.body.email || "Untitled Email" ,
+        password: req.body.password || "Untitled Password",
+        city: req.body.city || "Untitled City",
+        address: req.body.address || "Untitled City"
     });
-
     user.save()
     .then(data => {
-        res.send(data);
+        res.redirect('/users');
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while creating the User."
@@ -26,7 +28,7 @@ exports.create = (req, res) => {
 exports.index = (req, res) => {
     User.find()
     .then(users => {
-        res.render('../views/users/index', {users:users})
+        res.render('../views/users/users_index', {users:users})
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving notes."
@@ -42,7 +44,7 @@ exports.edit = (req, res) => {
                 message: "User not found with id " + req.params.userId
             });
         }
-        res.render('../views/users/form', {user :user});
+        res.render('/users/users_edit_form', {user :user});
 
     })
 };
@@ -56,7 +58,11 @@ exports.update = (req, res) => {
     }
 
     User.findByIdAndUpdate(req.params.userId, {
-        name: req.body.name || "Untitled User"
+        name: req.body.name || "Untitled User",
+        email: req.body.email || "Untitled Email" ,
+        password: req.body.password || "Untitled Password",
+        city: req.body.city || "Untitled City",
+        address: req.body.address || "Untitled City"
     }, {new: true})
     .then(user => {
         if(!user) {
@@ -79,22 +85,6 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     User.findByIdAndRemove(req.params.userId)
-    .then(user => {
-        if(!user) {
-            return res.status(404).send({
-                message: "User not found with id " + req.params.userId
-            });
-        }
-        // res.send({message: "User deleted successfully!"});
-        res.redirect('/users');
-    }).catch(err => {
-        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
-            return res.status(404).send({
-                message: "User not found with id " + req.params.userId
-            });                
-        }
-        return res.status(500).send({
-            message: "Could not delete user with id " + req.params.userId
-        });
-    });
+    .then( user => { res.send(req.params.userId) })
+    
 };

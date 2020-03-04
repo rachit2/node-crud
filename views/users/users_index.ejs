@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('user_partials/users_head'); %>
+</head>
+<body>
+<table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>City</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+<% 
+users.forEach( function ( user ){ %>
+<tr  id="delete_<%=user.id%>" >
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.password %></td>
+        <td><%= user.city %></td>
+        <td><%= user.address %></td>
+         <td><button type="button", onclick="edit_user('<%= user.id%>')">Edit!</button></td>
+         <td><button type="button", onclick="delete_user('<%= user.id%>')">Delete!</button></td>
+        </td>
+</tr>
+<% });
+ %>
+
+ </table>
+
+ <div style="background:yellow;height:630px;  border:2px #F0B27A solid; position:absolute; right:800px; top:50px; "></div>
+<p id="demo1"></p>
+
+<div id = "user_form", style="background:white; position:absolute; right:100px; top:50px;">
+  <%- include('user_partials/users_create_form'); %>
+  </div>
+
+</body>
+<%- include('user_partials/users_footer'); %>
+
+<%- include ('user_partials/users_script'); %>
+
+<script type="text/javascript">  
+
+function edit_user(id) {
+var user_form =  $("#user_form");
+        $.ajax({
+            url: '/users/' + id,
+            type: 'GET',
+            success: function(results) {
+                user_form.html(results);  
+            }
+        });
+    }
+
+function delete_user(id) {
+var demo1 =  $("#demo1");
+        $.ajax({
+            url: '/users/' + id,
+            type: 'DELETE',
+            success: function(results) {
+              debugger
+             // $("#this").reload();
+             location.reload();
+             // window.location.reload(true);
+        }
+        });
+    }
+
+function create_user() {
+var demo1 =  $("#demo1");
+        $.ajax({
+            url: '/users',
+            type: 'POST',
+            success: function(results) {
+                location.reload();
+             // $("#this").reload();
+             // location.reload();
+        }
+        });
+    }
+
+</script>
