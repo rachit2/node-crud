@@ -44,7 +44,7 @@ exports.edit = (req, res) => {
                 message: "User not found with id " + req.params.userId
             });
         }
-        res.render('/users/users_edit_form', {user :user});
+        res.render('./users/users_edit_form', {user :user});
 
     })
 };

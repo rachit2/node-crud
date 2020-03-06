@@ -22,7 +22,7 @@ users.forEach( function ( user ){ %>
         <td><%= user.password %></td>
         <td><%= user.city %></td>
         <td><%= user.address %></td>
-         <td><button type="button", onclick="edit_user('<%= user.id%>')">Edit!</button></td>
+         <td><button type="button", onclick="edit_user('<%= user.id%>')", id = "Edit">Edit!</button></td>
          <td><button type="button", onclick="delete_user('<%= user.id%>')">Delete!</button></td>
         </td>
 </tr>
@@ -30,7 +30,6 @@ users.forEach( function ( user ){ %>
  %>
 
  </table>
-
  <div style="background:yellow;height:630px;  border:2px #F0B27A solid; position:absolute; right:800px; top:50px; "></div>
 <p id="demo1"></p>
 
@@ -51,21 +50,20 @@ var user_form =  $("#user_form");
             url: '/users/' + id,
             type: 'GET',
             success: function(results) {
-                user_form.html(results);  
+              user_form.html(results);
+
             }
         });
     }
 
 function delete_user(id) {
 var demo1 =  $("#demo1");
+
         $.ajax({
             url: '/users/' + id,
             type: 'DELETE',
             success: function(results) {
-              debugger
-             // $("#this").reload();
              location.reload();
-             // window.location.reload(true);
         }
         });
     }
@@ -77,10 +75,7 @@ var demo1 =  $("#demo1");
             type: 'POST',
             success: function(results) {
                 location.reload();
-             // $("#this").reload();
-             // location.reload();
         }
         });
     }
-
 </script>
