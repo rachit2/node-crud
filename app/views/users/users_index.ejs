@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- include('user_partials/users_head'); %>
-</head>
-<body>
+
+    <%- include('../layout/users_layout/header'); %>
 <table>
     <thead>
       <tr>
@@ -36,10 +32,8 @@ users.forEach( function ( user ){ %>
 <div id = "user_form", style="background:white; position:absolute; right:100px; top:50px;">
   <%- include('user_partials/users_create_form'); %>
   </div>
-
+<%- include('../layout/users_layout/footer'); %>
 </body>
-<%- include('user_partials/users_footer'); %>
-
 <%- include ('user_partials/users_script'); %>
 
 <script type="text/javascript">  

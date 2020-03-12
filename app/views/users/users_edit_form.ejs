@@ -7,10 +7,12 @@
 <body>
 <div id="edit">
     <h1>Edit User</h1>
-    <form method="POST" action="/users/<%= user._id %>">
+    <form method="POST" action="/users/:<%= user._id %>">
         <fieldset>
+            
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" value="<%= user.name %>" /><br>
+            <input type="hidden" id="_id" name="_id" value="<%= user.id %>" /><br>
 
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" value="<%= user.email %>" /><br>

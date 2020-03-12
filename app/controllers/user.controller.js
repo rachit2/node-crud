@@ -1,90 +1,30 @@
 const User = require('../models/user.model.js');
 pry = require('pryjs')
+const perf = require('execution-time')();
 
-exports.create = (req, res) => {
-    // Validate request
-    if(!req.body.name) {
-        return res.status(400).send({
-            message: "Name can not be empty"
-        });
-    }
-    const user = new User({
-        name: req.body.name || "Untitled User",
-        email: req.body.email || "Untitled Email" ,
-        password: req.body.password || "Untitled Password",
-        city: req.body.city || "Untitled City",
-        address: req.body.address || "Untitled City"
-    });
-    user.save()
-    .then(data => {
-        res.redirect('/users');
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while creating the User."
-        });
-    });
-};
+module.exports = {
+  index : (req,res, next)=> {
+    perf.start();
+     a=4;
+    console.log((a+b)+ "=== beforeIndex" );
+    next();
+  },
 
-exports.index = (req, res) => {
-    User.find()
-    .then(users => {
-        res.render('../views/users/users_index', {users:users})
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving notes."
-        });
-    });
-};
+  afterIndex:  (req,res,next)=>{
+    c = 96;
+    console.log((a+c) + "  ==== afterIndex a+c")
+    console.log((a+c+d)+ "  === a+c+d")
+    res.send('complete')
+    const results = perf.stop();
+    console.log(results.time); 
 
-exports.edit = (req, res) => {
-    User.findById(req.params.userId)
-    .then(user => {
-        if(!user) {
-            return res.status(404).send({
-                message: "User not found with id " + req.params.userId
-            });
-        }
-        res.render('./users/users_edit_form', {user :user});
+  },
 
-    })
-};
+  beforeIndex: (req,res,next)=>{
+    b = 46;
+    d=10;
+    next();
 
-exports.update = (req, res) => {
-    // Validate Request
-    if(!req.body.name) {
-        return res.status(400).send({
-            message: "Name can not be empty"
-        });
-    }
+  }
 
-    User.findByIdAndUpdate(req.params.userId, {
-        name: req.body.name || "Untitled User",
-        email: req.body.email || "Untitled Email" ,
-        password: req.body.password || "Untitled Password",
-        city: req.body.city || "Untitled City",
-        address: req.body.address || "Untitled City"
-    }, {new: true})
-    .then(user => {
-        if(!user) {
-            return res.status(404).send({
-                message: "User not found with id " + req.params.userId
-            });
-        }
-        res.redirect('/users');
-    }).catch(err => {
-        if(err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "User not found with id " + req.params.userId
-            });                
-        }
-        return res.status(500).send({
-            message: "Error updating user with id " + req.params.userId
-        });
-    });
-};
-
-exports.delete = (req, res) => {
-    User.findByIdAndRemove(req.params.userId)
-    .then( user => { res.send(req.params.userId) })
-    
-};
+}

@@ -1,0 +1,65 @@
+permit params :- Done
+
+5 call function with function privATE METHODE commoin methode same file :- Done
+
+AFTER METHOD
+
+8 APPLICATION CONTROLLER COMMON METHODE FOR ALL  difrn t file 
+
+7 AJAX REQ + (ALL TYPE ) = search onkeypress/on click 
+
+1 email / sms TWILLIO
+
+
+BEFORE AFTER CALLBACK
+
+Therory:- Sync, Async, next, res, render, redirect, send, send_as_json
+
+
+
+6 MONGODB / MONGOOSE 
+
+3 keys primary foriegn 
+
+4 Association ++ 
+
+
+
+
+9 AUTHENTICATION FB/ INSTA /libkid/ devise gem
+
+11 TEMPLATE ENGINE = HAML / EJS / HTML / PUG  /jade 
+
+
+
+
+
+10 CHAT I/O SOCKT WEB/API
+
+
+
+
+theme parent public/p
+
+theme teacher p/t
+
+
+
+Read:-
+Async, Next
+
+
+
+
+
+
+
+
+
+
+
+Template:- 
+res.render('report', {
+       title : 'My report'
+    , layout : 'mylayout'
+});
